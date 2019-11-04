@@ -5,7 +5,7 @@
 	<div class="footer-inner">
 		<div class="footer-item">
 			<div class="logo">
-				<img src="https://d2ljmlcsal6xzo.cloudfront.net/assets/icons/logo-c99a7cbe11906a7c7a8084fbb47e605c16d0586f068ea095c19efc48f6d087e6.png" />
+				<img src="../image/mentorlogo.jpg" />
 			</div>
 
 			<div class="sns">

@@ -6,7 +6,7 @@
 		<div class="navbar-inner">
 			<div class="left">
 				<a class="logo" type="external" href="/"> 
-				<img src="" />
+				<img src="../image/mentorlogo.jpg"/>
 				</a>
 			</div>
 
@@ -33,7 +33,7 @@
 				<a class="button button-big beta-div" type="external"
 					href="/mentor_requests/new"> 멘토 지원하기 </a> 
 					<a class="button button-big" type="external" href="../member/writeForm">회원가입</a>
-				<a class="button button-big" type="external" href="../member/sign">로그인</a>
+				<a class="button button-big" type="external" href="../member/loginForm">로그인</a>
 			</div>
 		</div>
 	</div>
