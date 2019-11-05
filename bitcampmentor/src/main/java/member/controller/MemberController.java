@@ -1,5 +1,7 @@
 package member.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,40 +26,49 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
+	// WriteForm 화면
 	@RequestMapping(value = "writeForm", method = RequestMethod.GET)
 	public String writeForm(Model model) {
 		model.addAttribute("display", "/member/writeForm.jsp");
 		return "/main/index";
 	}
 
+	// Nick 중복 확인
 	@RequestMapping(value = "writeNicknamecheck", method = RequestMethod.POST)
 	@ResponseBody
 	public String writeNicknamecheck(@RequestParam String member_nickname, Model model) {
 		MemberDTO memberDTO = memberService.writeNicknamecheck(member_nickname);
-		if (memberDTO == null) 
+		if (memberDTO == null)
 			return "exist";
 		else
-		return "not_exist";
+			return "not_exist";
 	}
-	@RequestMapping(value = "writeEmailCheck",method=RequestMethod.POST)
+
+	// Email 중복확인
+	@RequestMapping(value = "writeEmailCheck", method = RequestMethod.POST)
 	@ResponseBody
-	public String writeEmailCheck(@RequestParam String member_email,Model model) {
-		MemberDTO memberDTO=memberService.writeEmailCheck(member_email);
-		if(memberDTO==null)
+	public String writeEmailCheck(@RequestParam String member_email, Model model) {
+		MemberDTO memberDTO = memberService.writeEmailCheck(member_email);
+		if (memberDTO == null)
 			return "email_ok";
 		else
 			return "email_fail";
 	}
-	
-	@RequestMapping(value ="memberwirte",method=RequestMethod.POST)
-	public String memberwrite(@ModelAttribute MemberDTO memberDTO,Model model) {
-		memberService.memberwirte(memberDTO);
-		System.out.println(memberDTO+"eee");
+
+	// 회원가입 완료
+	@RequestMapping(value = "write", method = RequestMethod.POST)
+	public String write(@RequestParam Map<String, String> map, Model model) {
+		memberService.write(map);
+		model.addAttribute("member_email", map.get("member_email"));
 		model.addAttribute("display", "/member/write.jsp");
 		return "/main/index";
-		
-		}
-		
+	}
+	
+	// LoginForm
+	@RequestMapping(value = "loginForm",method =RequestMethod.GET)
+	public String loginForm(Model model) {
+		model.addAttribute("display","/member/loginForm.jsp");
+		return "/main/index";
 	}
 
-
+}

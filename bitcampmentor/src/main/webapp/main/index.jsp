@@ -4,6 +4,8 @@
 
 <script src="https://d2ljmlcsal6xzo.cloudfront.net/packs/vendor-d00d42ee38137ae39144.js"></script>
 <script src="https://d2ljmlcsal6xzo.cloudfront.net/packs/application-978dcbe0c8e9f17a9e95.js"></script>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="../js/member.js"></script>
 
 <link rel="shortcut icon" href="../image/mentorlogo.ico" type="image/x-icon"/>
 <link rel="stylesheet"  href="../css/ly.css" type="text/css" />
