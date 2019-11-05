@@ -9,6 +9,7 @@
 
 <link rel="shortcut icon" href="../image/mentorlogo.ico" type="image/x-icon"/>
 <link rel="stylesheet"  href="../css/ly.css" type="text/css" />
+
 <body class="color-theme-pink">
 		<div id="app" class="framework7-root">
 
