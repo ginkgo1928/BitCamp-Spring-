@@ -19,8 +19,7 @@
 					</div> -->
 				</div>
 			</form>
-
-
+		
 			<div class="right">
 				<a class="button button-big" type="external" href="/mentors">
 					멘토찾기 </a> <a class="button button-big" type="external" href="/open_mentorings"> 콘텐츠 </a> 

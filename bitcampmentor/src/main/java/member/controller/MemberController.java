@@ -1,5 +1,6 @@
 package member.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -70,5 +71,25 @@ public class MemberController {
 		model.addAttribute("display","/member/loginForm.jsp");
 		return "/main/index";
 	}
+
+	// 로그인 처리
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@ResponseBody
+	public String login(@RequestParam String member_email, String member_pwd, HttpSession session) {
+		System.out.println("로그인 컨트롤러");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("member_email", member_email);
+		map.put("member_pwd", member_pwd);
+		MemberDTO memberDTO = memberService.login(map);
+		System.out.println(memberDTO + "로그인 정보");
+		if (memberDTO != null) {
+			session.setAttribute("memEmail", memberDTO.getMember_email());
+			session.setAttribute("memNickname",memberDTO.getMember_nickname());
+			return "login_ok";
+		} else {
+			return "login_fail";
+		}
+	}
+	//로그아웃
 
 }

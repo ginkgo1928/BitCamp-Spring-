@@ -157,4 +157,41 @@ function Ifn_write(){
 	}
 }
 
+//Login
+$(document).ready(function(){
+	$('#loginBtn').click(function(){
+		var jCont="";
+		if($('#member_email').val()==''){
+			jCont = '<div class="msg_error 11">이메일을 입력해주세요.</div>';
+			$('.login-member-email-Div').css('color', 'red').html(jCont);
+			$('#member_email').focus();
+			$('#member_email').addClass("error");
+		}else if($('#member_pwd').val()==''){
+			jCont = '<div class="msg_error 22">비밀번호를 입력해주세요.</div>';
+			$('.login-member-pwd-Div').css('color', 'red').html(jCont);
+			$('#member_pwd').focus();
+			$('#member_pwd').addClass("error");
+		}else{
+			$.ajax({
+				type:'post',
+				url:'/bitcampmentor/member/login',
+				data:'member_email=' + $('#member_email').val() + '&member_pwd=' + $('#member_pwd').val(),
+				dataType:'text',
+				success(data){
+					if (data == 'login_ok') {
+						location.href = '/bitcampmentor/main/index'
+					} else if (data == 'login_fail') {
+						$('.login-Div').text('아이디 또는 비밀번호가 틀립니다').css('color', 'red')
+					}
+				},error:function(e){
+					conlose.log(e);
+					
+				}
+			});
+			
+			$('#member_email').removeClass("error");
+			$('#member_pwd').removeClass("error");
+		}
+	});
+});
 
