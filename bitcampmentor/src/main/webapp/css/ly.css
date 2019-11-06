@@ -5095,10 +5095,10 @@ button {
 input[type="submit"].button,input[type="button"].button {
     width: 100%
 }
-
+/* 
 button {
     width: 100%
-}
+} */
 
 .segmented {
     -ms-flex-item-align: center;
@@ -29399,7 +29399,7 @@ trix-editor .attachment__metadata .attachment__size {
 }
 
 .trix-content .attachment__caption .attachment__name+.attachment__size::before {
-    content: ' ¡¤ '
+    content: ' ï¿½ï¿½ '
 }
 
 .trix-content .attachment--preview {
@@ -33781,7 +33781,7 @@ footer.footer .info {
 .menu-list .links-list a {
     padding-right: 15px;
     background-image: none;
-    height: 40px
+    height: 20px
 }
 
 .menu-list .links-list .beta-text {
@@ -37268,7 +37268,7 @@ th,td {
 }
 
 .pages.show .content-block .history-wrap .history-inner .history .item .date:after {
-    content: "¡Ü";
+    content: "ï¿½ï¿½";
     position: absolute;
     font-size: 11px;
     display: inline-block;

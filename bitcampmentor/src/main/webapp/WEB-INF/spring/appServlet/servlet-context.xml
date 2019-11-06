@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+<beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- servlet에서 보듯이 요청과 관련된 객체를 정의합니다.
+	url과 관련된 controller나, @(어노테이션), ViewResolver, Interceptor, MultipartResolver 등의 설정을 해줍니다. -->
+
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+
 	<context:component-scan base-package="main.controller"/>
+
 	<context:component-scan base-package="member.controller"/>
+
+	<!-- 모임 게시판 관련 부분 -->
+	<context:component-scan base-package="meetingboard.controller"/>
+
+	
+
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
+	<mvc:annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
-	<resources mapping="/image/**" location="/image/" />
-	<resources mapping="/css/**" location="/css/" />
-	<resources mapping="/js/**" location="/js/" />
+	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	<mvc:resources location="/storage/" mapping="/storage/**"/>
+	<mvc:resources location="/image/" mapping="/image/**"/>
+	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/css/" mapping="/css/**"/>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- <beans:property name="prefix" value="/WEB-INF/views/" /> -->
+		<property name="suffix" value=".jsp" />
+	</bean>
 	
-	<!-- json -->
-	<beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-		<beans:property name="contentType" value="text/html;charset=UTF-8" />
-	</beans:bean>
 
-	<beans:bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
-		<beans:property name="order" value="0" />
-	</beans:bean>
+
+	<!-- fileUpload -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="5000000"/>
+	</bean>
 	
 	
 	<context:component-scan base-package="co.kr.bitcampmentor" />
 	
 	
 	
-</beans:beans>
+</beans>

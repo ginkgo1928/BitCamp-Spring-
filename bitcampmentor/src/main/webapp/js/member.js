@@ -55,7 +55,7 @@ function Ifn_NickCheck(){
 	}else{
 		$.ajax({
 			type:'post',
-			url:'/bitcampmentor/member/writeNicknamecheck',
+			url:'/mentor/member/writeNicknamecheck',
 			data:{'member_nickname':nickName},
 			dataType:'text',
 			success:function(data){

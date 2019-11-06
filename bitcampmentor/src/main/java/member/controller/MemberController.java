@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import member.bean.MemberDTO;
 import member.service.MemberService;
+
 /**
  * @Title : 회원가입 컨트롤.
  * @author : ginkgo1928
@@ -64,11 +66,11 @@ public class MemberController {
 		model.addAttribute("display", "/member/write.jsp");
 		return "/main/index";
 	}
-	
+
 	// LoginForm
-	@RequestMapping(value = "loginForm",method =RequestMethod.GET)
+	@RequestMapping(value = "loginForm", method = RequestMethod.GET)
 	public String loginForm(Model model) {
-		model.addAttribute("display","/member/loginForm.jsp");
+		model.addAttribute("display", "/member/loginForm.jsp");
 		return "/main/index";
 	}
 
@@ -84,12 +86,19 @@ public class MemberController {
 		System.out.println(memberDTO + "로그인 정보");
 		if (memberDTO != null) {
 			session.setAttribute("memEmail", memberDTO.getMember_email());
-			session.setAttribute("memNickname",memberDTO.getMember_nickname());
+			session.setAttribute("memNickname", memberDTO.getMember_nickname());
 			return "login_ok";
 		} else {
 			return "login_fail";
 		}
 	}
-	//로그아웃
+
+	// 로그아웃 처리
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public ModelAndView logout(HttpSession session) {
+		System.out.println("로그아웃");
+		session.invalidate();
+		return new ModelAndView("redirect:/main/index");
+	}
 
 }
