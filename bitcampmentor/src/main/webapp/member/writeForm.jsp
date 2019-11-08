@@ -1,18 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <script src="../js/member.js"></script>
+<link rel="stylesheet"  href="../css/mypg.css" type="text/css" />
 
 <div class="page navbar-fixed devise registrations new" data-name="registrations-new">
 	<div class="page-content" style="margin-bottom: 100px;">
 		<div class="content-wrapper">
 		<h1 align="center">회원가입</h1>
 			<div class="block inset login-block">
-				<form class="simple_form new_user" name="writeForm" id="writeForm" method="post" action="/bitcampmentor/member/write">
-					<input type="hidden" name="member_flag" value="0">
-					<div class="signup-or-separator">
-						
+					<form class="simple_form new_user" name="writeForm" id="writeForm" method="post" enctype="multipart/form-data" action="/bitcampmentor/member/write">	
+					<div class="member-img-block">
+						<div class="member-img-circle"><img id="member_prople_img" src="../image/profile.jpg"/></div><br/><br/>
+							<div class="file-container">
+								<div class="cover">
+									<input id="member_prople" name="member_prople"  accept=".jpg, .jpeg, .png" type="file" onchange="previewFile(this);" /> 
+									<label for="member_prople" class="member-img-upbtn">이미지 업로드</label>
+							</div>
+						</div>
 					</div>
-
+					<!-- </form> -->
 					<div class="list form-list no-hairlines no-margin-top">
 						<ul>
 							<li class="item-content item-input">
@@ -28,7 +34,7 @@
 								<div class="item-inner">
 									<div class="item-input-wrap">
 										<input autocapitalize="off"  autocomplete="NickName" class="string NickName required" 
-												placeholder="닉네임" type="text" value="" maxlength="20"name="member_nickname" id="member_nickname" onkeyup="Ifn_NickCheck();" />
+												placeholder="닉네임" type="text" value="" maxlength="20"name="member_nickname" id="member_nickname"/>
 										<div class="item-input-info-NickName"></div>
 									</div>
 								</div>
@@ -38,7 +44,7 @@
 								<div class="item-inner">
 									<div class="item-input-wrap">
 										<input autocapitalize="off"  autocomplete="email" required="required" class="string email required"
-										 		aria-required="true" placeholder="이메일 주소" type="email" value="" name="member_email" id="member_email" maxlength="50" onkeypress="Ifn_EmailCheck();" />
+										 		aria-required="true" placeholder="이메일 주소" type="email" value="" name="member_email" id="member_email" maxlength="50" />
 										<div class="item-input-info-Email"></div>
 									</div>
 								</div>
@@ -82,7 +88,7 @@
 
 
 			<div class="block inset text-align-center">
-				<a class="color-gray" type="external" href="../member/loginForm"> 이미 계정이 있나요? 로그인 </a>
+				<a class="color-gray" type="external" href="/mentor/member/loginForm"> 이미 계정이 있나요? 로그인 </a>
 			</div>
 		</div>
 	</div>

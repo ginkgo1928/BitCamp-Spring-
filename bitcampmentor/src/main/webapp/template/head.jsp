@@ -24,16 +24,16 @@
 				<a class="button button-big" type="external" href="/open_mentorings"> 콘텐츠 </a> 
 				<a class="button button-big" type="external" href="/mentor_posts?featured_mentor_post=true">에세이</a>
 				<div class="beta-div">
-					<a class="button button-big program-button" type="external" href="/mentee_programs"> 모임 <span class='beta-text'>beta</span></a>
+				<a class="button button-big program-button" type="external" href="/mentee_programs"> 모임 <span class='beta-text'>beta</span></a>
 				</div>
 				
 				<a class="button button-big beta-div" type="external" href="/mentor_requests/new"> 멘토 지원하기 </a>
-				<c:if test= "${memEmail==null}">
+				<c:if test= "${memDTO==null}">
 				<a class="button button-big" type="external" href="../member/writeForm">회원가입</a>
 				<a class="button button-big" type="external" href="../member/loginForm">로그인</a>
 				</c:if>
 				
-				<c:if test="${memEmail!=null}">
+				<c:if test="${memDTO!=null}">
 				 <a type="internal" class="button button-big popover-open me-profile" data-popover=".js-me-popover" href="">
 				 	<img src="../image/profile.jpg" width="28" height="28">
 				</a>
@@ -48,7 +48,7 @@
 										<li><a type="external" href="">멘토찾기</a></li>
 										<li><a type="external" href="">콘텐츠</a></li>
 										<li><a type="external" href="">에세이</a></li>
-										<li><a type="external" href=""><span class="beta-text">모임</span><span class="badge color-red alim">18</span></a></li>
+										<li><a type="external" href=""><span>모임</span><span class="beta-text">beta</span><span class="badge color-red alim">18</span></a></li>
 										<li><a type="external" href="">멘토지원하기</a></li>
 									</ul>
 								</div>
@@ -72,12 +72,8 @@
 						</div>
 					</div>
 				</c:if>	
-			</div>
-		</div>
+      </div>	
 	</div>
 </div>
-
-
-
-
+</div>
 
