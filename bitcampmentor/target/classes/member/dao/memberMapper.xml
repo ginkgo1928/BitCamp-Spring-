@@ -5,8 +5,8 @@
 <mapper namespace="memberSQL">
 	<!-- 회원가입 처리 -->
 	<insert id="write" parameterType="java.util.Map">
-			insert into mentors_member(member_name,member_nickname,member_email,member_pwd,member_prople) 
-		values(#{member_name},#{member_nickname},#{member_email},#{member_pwd},#{member_prople})
+			insert into mentors_member(member_name,member_nickname,member_email,member_pwd,member_profile) 
+			values(#{member_name},#{member_nickname},#{member_email},#{member_pwd},#{member_profile})
 	</insert>
 	<!-- Nickname 중복확인 -->
 	<select id="writeNicknamecheck" parameterType="String" resultType="member">
@@ -17,7 +17,7 @@
 		select * from mentors_member where member_email=#{member_email}
 	</select>
 	<!-- 로그인 처리  -->
-	<select id="login" parameterType="String" resultType="member">
+	<select id="login" parameterType="java.util.Map" resultType="member">
 		select * from mentors_member where member_email=#{member_email} and member_pwd=#{member_pwd}
 	</select>
 </mapper>

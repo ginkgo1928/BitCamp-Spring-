@@ -7,7 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.github.scribejava.core.model.Response;
 
 import member.bean.MemberDTO;
 import member.service.MemberService;
@@ -78,15 +86,15 @@ public class MemberController {
 	 * @date : 2019. 11. 7.
 	 */
 	@RequestMapping(value = "write", method = RequestMethod.POST)
-	public String write(@RequestParam Map<String, String> map, @RequestParam MultipartFile member_prople, Model model) {
-		//회원 이메일 폴더가 자동생성으로 생성된게 아니라 회원이메일 폴더 만들어주고 넣어야 한다.
-		String filePath="C:\\Git_Ginkgo-work\\bitcampmentor\\src\\main\\webapp\\storage"+map.get("member_email");
-		String fileName=member_prople.getOriginalFilename();
+	public String write(@RequestParam Map<String, String> map, @RequestParam MultipartFile member_profile,
+			Model model) {
+		String filePath = "C:\\Git_Ginkgo-work\\bitcampmentor\\src\\main\\webapp\\storage";
+		String fileName = member_profile.getOriginalFilename();
 		File file = new File(filePath, fileName);
-		map.put("member_prople", fileName);
+		map.put("member_profile", fileName);
 		memberService.write(map);
 		try {
-			FileCopyUtils.copy(member_prople.getInputStream(), new FileOutputStream(file));
+			FileCopyUtils.copy(member_profile.getInputStream(), new FileOutputStream(file));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -99,31 +107,51 @@ public class MemberController {
 
 	// LoginForm
 	@RequestMapping(value = "loginForm", method = RequestMethod.GET)
-	public String loginForm(Model model) {
+	public String loginForm(Model model, HttpServletRequest request) {
 		model.addAttribute("display", "/member/loginForm.jsp");
 		return "/main/index";
 	}
+	
 	/**
-	 * @Title : 로그인 처리.
+	 * @Title : 로그인 처리,아이디 저장(쿠키를 생성한다).
 	 * @author : ginkgo1928
-	 * @date : 2019. 11. 1.
+	 * @date : 2019. 11. 09.
 	 */
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	@ResponseBody
-	public String login(@RequestParam String member_email, String member_pwd, HttpSession session) {
+	public String login(@RequestParam String member_email, String member_pwd, String cheboxid,
+			HttpServletResponse response, HttpServletRequest request, HttpSession session) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("member_email", member_email);
 		map.put("member_pwd", member_pwd);
 		memberDTO = memberService.login(map);
-		memberDTO.setMember_pwd("");
-		if (memberDTO != null) {	
+		//memberDTO.setMember_pwd("");
+		if (memberDTO != null) {
+			if (cheboxid.equals("true")) {
+				Cookie cookie = new Cookie("Cookie_ID", memberDTO.getMember_email());
+				cookie.setMaxAge(60 * 60 * 24 * 7); //7일
+				cookie.setPath("/");
+				response.addCookie(cookie);
+			}
 			session.setAttribute("memDTO", memberDTO);
 			return "login_ok";
-		} else { 
-			return "login_fail";
+		} else if (cheboxid.equals("false")) {
+			Cookie[] cookies = request.getCookies();
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equals("Cookie_ID")) {
+						cookie.setMaxAge(0);
+						cookie.setPath("/");
+						response.addCookie(cookie);
+					}
+				}
+			}
+		} else {
+
 		}
+		return "login_fail";
 	}
-	
+
 	// 로그아웃 처리
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) {
@@ -132,4 +160,3 @@ public class MemberController {
 		return new ModelAndView("redirect:/main/index");
 	}
 }
-

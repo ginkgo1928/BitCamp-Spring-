@@ -28,13 +28,13 @@ function Ifn_NameCheck() {
 	var reg = /[ 0-9\{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@#$%&\'\"\\\(\=]/gi;
 	var jCont = "";
 	if (name.length==0) {
-		jCont = '<div class="msg_error">이름을 입력해주세요.</div>';
+		jCont = '<div class="msg_error01">이름을 입력해주세요.</div>';
 		$('.item-input-info-Name').css('color', 'red').html(jCont);
 		$('#member_name').focus();
 		$('#member_name').addClass("error");
 		return false;
 	}else if(reg.test(name)){
-		jCont = '<div class="msg_error">한글,영문만 입력 가능합니다.</div>';
+		jCont = '<div class="msg_error02">한글,영문만 입력 가능합니다.</div>';
 		$('.item-input-info-Name').css('color', 'red').html(jCont);
 		$('#member_name').focus();
 		$('#member_name').addClass("error");
@@ -54,14 +54,13 @@ $(document).ready(function(){
 	var nickName=$("#member_nickname").val();
 	var jCont="";
 	if(nickName.length==0){
-		jCont = '<div class="msg_error 01">닉네임을 입력해주세요.</div>';
+		jCont = '<div class="msg_error">닉네임을 입력해주세요.</div>';
 		$('.item-input-info-NickName').css('color', 'red').html(jCont);
 		$('#member_nickname').focus();
 		$('#member_nickname').addClass("error");
 		return false;
-		
 	}else if(nickName.length< 3 || nickName.length>22){
-		jCont = '<div class="msg_error 02">닉네임 3자~22자. 이하입니다.</div>';
+		jCont = '<div class="msg_error">닉네임 3자~22자. 이하입니다.</div>';
 		$('.item-input-info-NickName').css('color', 'red').html(jCont);
 		$('#member_nickname').focus();
 		$('#member_nickname').addClass("error");
@@ -95,13 +94,13 @@ $(document).ready(function(){
 	var Email=$("#member_email").val();
 	var jCont="";
 	if(Email.length==0){
-		jCont = '<div class="msg_error 03">이메일을 입력해주세요.</div>';
+		jCont = '<div class="msg_error">이메일을 입력해주세요.</div>';
 		$('.item-input-info-Email').css('color', 'red').html(jCont);
 		$('#member_email').focus();
 		$('#member_email').addClass("error");
 		return false;	
 	}else if(emailCheck(Email)){
-		jCont = '<div class="msg_error 03">올바르지 않은 이메일 형식입니다.</div>';
+		jCont = '<div class="msg_error">올바르지 않은 이메일 형식입니다.</div>';
 		$('.item-input-info-Email').css('color', 'red').html(jCont);
 		$('#member_email').focus();
 		$('#member_email').addClass("error");
@@ -173,10 +172,9 @@ function Ifn_RepwdCheck(){
 function previewFile(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
-		//prople_img_id 변수명과 똑같이 해줘야됨
-		var member_prople_img = input.id + "_img";
+		var member_profile_img = input.id + "_img";
 		reader.onload = function(e) {
-		 $('#'+member_prople_img).attr('src', e.target.result) 
+		 $('#'+member_profile_img).attr('src', e.target.result) 
 		 .width(100)
 		 .height(100);
 		 }
@@ -185,24 +183,65 @@ function previewFile(input) {
 	
 }
 
-//정보 입력 후  submit으로 값을 넘긴다.
-function Ifn_write(){
- if (Ifn_NameCheck()&&Ifn_NickCheck()&&Ifn_EmailCheck()&&Ifn_PwdCheck()&&Ifn_RepwdCheck()) {
-	 $('#writeForm').submit();
-	}
-}
+// 회원가입 버튼을 눌렀을 떄 유효성 검사
+$(document).ready(function(){
+	$('#writeBtn').click(function(){
+		var jCont="";
+		if ($('#member_name').val()==false) {
+			jCont = '<div class="msg_error01">이름에 내용을 입력해주세요</div>';
+			$('.item-input-info-Name').css('color', 'red').html(jCont);
+			$('#member_name').focus();
+			$('#member_name').addClass("error");
+		}else if($('#member_nickname').val()==false){
+			jCont = '<div class="msg_error33">닉네임에 내용을 해주세요.</div>';
+			$('#member_nickname').focus();
+			$('.item-input-info-NickName').css('color', 'red').html(jCont);
+			$('#member_nickname').addClass("error");
+		}else if($('#member_email').val()==false){
+			jCont = '<div class="msg_error">이메일을 내용을 입력주세요.</div>';
+			$('#member_email').focus();
+			$('.item-input-info-Email').css('color', 'red').html(jCont);
+			$('#member_email').addClass("error");
+		}else if($('#member_pwd').val()==false){
+			jCont='<div class="msg_pwderror">비밀번호에 내용을 입력해주세요.</div>';
+			$('.item-input-info-Pwd').css('color','red').html(jCont);
+			$('#member_pwd').focus();
+			$('#member_pwd').addClass("error");
+		}else if($('#member_repwd').val()==false){
+			jCont='<div class="msg_repwder">비밀번호에 내용을 입력해주세요.</div>';
+			$('.item-input-info-Repwd').css('color','red').html(jCont);
+			$('#member_repwd').focus();
+			$('#member_repwd').addClass("error")
+		}else if ($("#member_servicecheck").prop("checked")==false){
+			jCont = '<div class="msg_error01">약관을 확인하고 체크해주세요.</div>';
+			$('.item-input-info-checkbox').css('color', 'red').html(jCont);
+			$('#member_servicecheck').addClass("error");
+		}else if($("#member_servicecheck").prop("checked")==true){ 
+			$('#member_servicecheck').removeClass("error");
+			$('#member_name').removeClass("error");
+			$('#member_nickname').removeClass("error");
+			$('#member_email').removeClass("error");
+			$('#member_pwd').removeClass("error");
+			$('#member_repwd').removeClass("error");
+			$('form[name=writeForm]').submit();
+		}
+	});
+});
 
-// Login
+//Login
 $(document).ready(function(){
 	$('#loginBtn').click(function(){
 		var jCont="";
-		if($('#member_email').val()==''){
-			jCont = '<div class="msg_error 11">이메일을 입력해주세요.</div>';
+		var email=$('#member_email').val();
+		var pwd=$('#member_pwd').val();
+		var cheboxId=$('#cheboxid').prop('checked');
+		if(email.length==0){
+			jCont = '<div class="msg_error">이메일을 입력해주세요.</div>';
 			$('.login-member-email-Div').css('color', 'red').html(jCont);
 			$('#member_email').focus();
 			$('#member_email').addClass("error");
-		}else if($('#member_pwd').val()==''){
-			jCont = '<div class="msg_error 22">비밀번호를 입력해주세요.</div>';
+		}else if(pwd.length==0){
+			jCont = '<div class="msg_error">비밀번호를 입력해주세요.</div>';
 			$('.login-member-pwd-Div').css('color', 'red').html(jCont);
 			$('#member_pwd').focus();
 			$('#member_pwd').addClass("error");
@@ -210,24 +249,22 @@ $(document).ready(function(){
 			$.ajax({
 				type:'post',
 				url:'/bitcampmentor/member/login',
-				data:'member_email=' + $('#member_email').val() + '&member_pwd=' + $('#member_pwd').val(),
+				data:{'member_email':email,'member_pwd':pwd,'cheboxid':cheboxId},
 				dataType:'text',
-				success(data){
-					if (data == 'login_ok') {
+				success:function(data){
+					if (data=="login_ok") {
 						location.href = '/bitcampmentor/main/index'
-					} else if (data == 'login_fail') {
-						$('.login-Div').text('아이디 또는 비밀번호가 틀립니다').css('color', 'red')
+					} else if (data =="login_fail") {
+						$('.login-Div').text('아이디 또는 비밀번호가 틀립니다').css('color', 'red');
 					}
 				},error:function(e){
 					conlose.log(e);
 					
 				}
 			});
-			
 			$('#member_email').removeClass("error");
 			$('#member_pwd').removeClass("error");
 		}
 	});
 });
-
 

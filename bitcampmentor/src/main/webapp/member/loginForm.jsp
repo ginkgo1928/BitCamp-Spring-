@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <script src="../js/member.js"></script>
-
 <div class="page navbar-fixed devise sessions new" data-name="sessions-new">
 	<div class="page-content" style="margin-bottom: 100px;">
 		<div class="content-wrapper">
@@ -12,7 +11,7 @@
 			</div>
 
 			<div class="block inset login-block">
-				<form class="simple_form new_user" id="new_user" novalidate="novalidate" action="" method="post">
+				<form class="simple_form new_user" name="loginForm" id="loginForm" novalidate="novalidate" action="" method="post">
 					<div class="signup-or-separator">
 						<span class="signup-or-separator--text">또는</span>
 						<hr>
@@ -41,10 +40,12 @@
 						</ul>
 					</div>
 					<div class="login-Div"></div>
+				
 					<div class="block-footer forgot-password text-align-right">
-						<a class="color-gray" type="external" href="">비밀번호를 잊으셨나요? </a>
+					<input type="checkbox" id="cheboxid" name="cheboxid" value="">아이디 저장 &nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="color-gray" type="external" href="">비밀번호를 잊으셨나요? </a>
 					</div>
-
+					
 					<input type="button" id="loginBtn" value="로그인" class="btn button button-big button-fill submit-button" data-disable-with="요청중..." />
 				</form>
 			</div>
