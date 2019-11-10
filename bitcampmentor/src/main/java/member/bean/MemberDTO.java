@@ -1,7 +1,11 @@
 package member.bean;
 
 
+import java.util.Date;
+
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 /**
@@ -20,4 +24,7 @@ public class MemberDTO {
 	private String member_repwd;
 	private String member_profile;
 	private String member_seq;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="YYYY-MM-DD")
+	private Date logtime;
+	
 }

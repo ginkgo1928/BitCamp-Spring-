@@ -19,39 +19,26 @@ import member.bean.MemberDTO;
 public class MemberDAOMybatis implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
-	/**
-	 * @Title : 닉네임 중복확인
-	 * @author : ginkgo1928
-	 * @date : 2019. 11. 5.
-	 */
+	/** @Title : 닉네임 중복확인
+ 	   @author : ginkgo1928  @date : 2019. 11. 5.*/
 	@Override
 	public MemberDTO writeNicknamecheck(String member_nickname) {
 		return sqlSession.selectOne("memberSQL.writeNicknamecheck", member_nickname);
 	}
-	/**
-	 * @Title : 이름 중복확인
-	 * @author : ginkgo1928
-	 * @date : 2019. 11. 5.
-	 */
+	/** @Title : 이름 중복확인
+	 * @author : ginkgo1928  @date : 2019. 11. 5.*/
 	@Override
 	public MemberDTO writeEmailCheck(String member_email) {
 		return sqlSession.selectOne("memberSQL.writeEmailCheck", member_email);
 	}
-	/**
-	 * @Title : 회원가입 처리
-	 * @author : ginkgo1928
-	 * @date : 2019. 11. 5.
-	 */
+	/** @Title : 회원가입 처리
+	 * @author : ginkgo1928 @date : 2019. 11. 5.*/
 	@Override
 	public void write(Map<String, String> map) {
-		System.out.println("멤버 DAO");
 		 sqlSession.insert("memberSQL.write",map);
 	}
-	/**
-	 * @Title : 로그인 처리
-	 * @author : ginkgo1928
-	 * @date : 2019. 11. 5.
-	 */
+	/** @Title : 로그인 처리
+	 * @author : ginkgo1928  @date : 2019. 11. 5.*/
 	@Override
 	public MemberDTO login(Map<String, String> map) {
 		MemberDTO memberDTO=sqlSession.selectOne("memberSQL.login",map);

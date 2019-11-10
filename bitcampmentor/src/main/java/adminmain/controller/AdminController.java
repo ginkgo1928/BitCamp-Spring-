@@ -5,11 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * @Title : 관리자페이지 모든 List controller
- * @author : 안상구
- * @date : 2019. 11. 5.
- */
+/** @Title : 관리자페이지 모든 List controller
+ * @author : 안상구  @date : 2019. 11. 5.*/
 
 @Controller
 @RequestMapping(value="admin")

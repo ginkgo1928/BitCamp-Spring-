@@ -64,7 +64,7 @@
 								
 								<div class="list links-list no-hairlines-between">
 									<ul>
-										<li><a type="external" href="">계정설정</a></li>
+										<li><a type="external" href="/bitcampmentor/member/modifyForm">계정설정</a></li>
 										<li><a type="external" href="/bitcampmentor/member/logout">로그아웃</a></li>
 									</ul>
 								</div>

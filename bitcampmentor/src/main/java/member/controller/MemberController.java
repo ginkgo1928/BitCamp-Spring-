@@ -7,13 +7,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.github.scribejava.core.model.Response;
-
 import member.bean.MemberDTO;
 import member.service.MemberService;
 
@@ -50,11 +44,8 @@ public class MemberController {
 		return "/main/index";
 	}
 
-	/**
-	 * @Title : 닉네임 중복확인.
-	 * @author : ginkgo1928
-	 * @date : 2019. 11. 1.
-	 */
+	/** @Title : 닉네임 중복확인.
+	 * @author : ginkgo1928  @date : 2019. 11. 1.*/
 	@RequestMapping(value = "writeNicknamecheck", method = RequestMethod.POST)
 	@ResponseBody
 	public String writeNicknamecheck(@RequestParam String member_nickname, Model model) {
@@ -65,11 +56,8 @@ public class MemberController {
 			return "not_exist";
 	}
 
-	/**
-	 * @Title : 이메일 중복확인.
-	 * @author : ginkgo1928
-	 * @date : 2019. 11. 1.
-	 */
+	/** @Title : 이메일 중복확인.
+	 * @author : ginkgo1928  @date : 2019. 11. 1.*/
 	@RequestMapping(value = "writeEmailCheck", method = RequestMethod.POST)
 	@ResponseBody
 	public String writeEmailCheck(@RequestParam String member_email, Model model) {
@@ -80,15 +68,12 @@ public class MemberController {
 			return "email_fail";
 	}
 
-	/**
-	 * @Title : 회원가입 완료 & 프로필 이미지 storage 연결.
-	 * @author : ginkgo1928
-	 * @date : 2019. 11. 7.
-	 */
+	/** @Title : 회원가입 완료 & 프로필 이미지 storage 연결.
+	   @author : ginkgo1928 @date : 2019. 11. 7*/
 	@RequestMapping(value = "write", method = RequestMethod.POST)
 	public String write(@RequestParam Map<String, String> map, @RequestParam MultipartFile member_profile,
 			Model model) {
-		String filePath = "C:\\Git_Ginkgo-work\\bitcampmentor\\src\\main\\webapp\\storage";
+		String filePath = "C:\\Git_Ginkgo-work\\bitcampmentor\\src\\main\\webapp\\storage\\";
 		String fileName = member_profile.getOriginalFilename();
 		File file = new File(filePath, fileName);
 		map.put("member_profile", fileName);
@@ -107,16 +92,13 @@ public class MemberController {
 
 	// LoginForm
 	@RequestMapping(value = "loginForm", method = RequestMethod.GET)
-	public String loginForm(Model model, HttpServletRequest request) {
+	public String loginForm(Model model) {
 		model.addAttribute("display", "/member/loginForm.jsp");
 		return "/main/index";
 	}
-	
-	/**
-	 * @Title : 로그인 처리,아이디 저장(쿠키를 생성한다).
-	 * @author : ginkgo1928
-	 * @date : 2019. 11. 09.
-	 */
+
+	/** @Title : 로그인 처리,아이디 저장(쿠키를 생성한다).
+	 * @author : ginkgo1928 @date : 2019. 11. 09. */
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	@ResponseBody
 	public String login(@RequestParam String member_email, String member_pwd, String cheboxid,
@@ -125,11 +107,11 @@ public class MemberController {
 		map.put("member_email", member_email);
 		map.put("member_pwd", member_pwd);
 		memberDTO = memberService.login(map);
-		//memberDTO.setMember_pwd("");
+		// memberDTO.setMember_pwd("");
 		if (memberDTO != null) {
 			if (cheboxid.equals("true")) {
-				Cookie cookie = new Cookie("Cookie_ID", memberDTO.getMember_email());
-				cookie.setMaxAge(60 * 60 * 24 * 7); //7일
+				Cookie cookie = new Cookie("Cookie_Email", memberDTO.getMember_email());
+				cookie.setMaxAge(60 * 60 * 24 * 7); // 7일
 				cookie.setPath("/");
 				response.addCookie(cookie);
 			}
@@ -139,7 +121,7 @@ public class MemberController {
 			Cookie[] cookies = request.getCookies();
 			if (cookies != null) {
 				for (Cookie cookie : cookies) {
-					if (cookie.getName().equals("Cookie_ID")) {
+					if (cookie.getName().equals("Cookie_Email")) {
 						cookie.setMaxAge(0);
 						cookie.setPath("/");
 						response.addCookie(cookie);
@@ -155,8 +137,17 @@ public class MemberController {
 	// 로그아웃 처리
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) {
-		System.out.println("로그아웃");
 		session.invalidate();
 		return new ModelAndView("redirect:/main/index");
 	}
+	
+	/** @Title : 계정설정 화면.
+	 * @author : ginkgo1928  @date : 2019. 11. 10.*/
+	@RequestMapping(value = "modifyForm", method = RequestMethod.GET)
+ 	public String modifyForm(Model model) {
+		model.addAttribute("display", "/member/modifyForm.jsp");
+		return "/main/index";
+ 	
+ 	}
 }
+

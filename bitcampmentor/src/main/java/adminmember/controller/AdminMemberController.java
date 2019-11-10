@@ -6,12 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-/** 
- * @Title : 관리자페이지 회원관리 컨트롤러입니다
- * @author : 안상구
- * @date : 2019. 11. 5.
- * 이해 안가시는 부분이있으면 연락주세요
- */
+/**  @Title : 관리자페이지 회원관리 컨트롤러입니다
+ * @author : 안상구  @date : 2019. 11. 5. */
 
 
 @Controller

@@ -15,17 +15,19 @@ import member.dao.MemberDAO;
 @Service(value="memberService")
 public class MemberServiceImpl implements MemberService {
 	@Autowired private MemberDAO memberDAO;
-	//Nickname 중복확인
+	/** @Title : 닉네임 중복확인.
+	 * @author : ginkgo1928 @date : 2019. 11. 5.*/
 	@Override
 	public MemberDTO writeNicknamecheck(String member_nickname) {
 		return memberDAO.writeNicknamecheck(member_nickname);
 	}
-	//Email중복확인
+	/** @Title : 이메일 중복확인
+	 * @author : ginkgo1928  @date : 2019. 11. 5.*/
 	@Override
 	public MemberDTO writeEmailCheck(String member_email) {
 		return memberDAO.writeEmailCheck(member_email);
 	}
-	//회원가입 완료
+	/*회원가입 완료*/
 	@Override
 	public void write(Map<String, String> map) {
 		memberDAO.write(map);

@@ -42,7 +42,7 @@
 					<div class="login-Div"></div>
 				
 					<div class="block-footer forgot-password text-align-right">
-					<input type="checkbox" id="cheboxid" name="cheboxid" value="">아이디 저장 &nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="checkbox" id="cheboxid" name="cheboxid" value="">이메일 저장 &nbsp;&nbsp;&nbsp;&nbsp;
 					<a class="color-gray" type="external" href="">비밀번호를 잊으셨나요? </a>
 					</div>
 					
