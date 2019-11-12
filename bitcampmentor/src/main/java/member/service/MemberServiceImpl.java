@@ -27,14 +27,20 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO writeEmailCheck(String member_email) {
 		return memberDAO.writeEmailCheck(member_email);
 	}
-	/*회원가입 완료*/
+	/* 회원가입 완료 */
 	@Override
 	public void write(Map<String, String> map) {
 		memberDAO.write(map);
 	}
 	@Override
+	/* 로그인 */
 	public MemberDTO login(Map<String, String> map) {
 		return memberDAO.login(map);
+	}
+	/* 비밀번호 찾기 */
+	@Override
+	public MemberDTO setmemberpwd(Map<String, String> map) {
+		return memberDAO.setsetmemberpwd(map);
 	}
 
 

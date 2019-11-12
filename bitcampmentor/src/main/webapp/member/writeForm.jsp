@@ -74,7 +74,7 @@
 
 
 					<div class="block-footer term-footer">
-						<input type="checkbox"  id="member_servicecheck" name="member_servicecheck"  />회원가입을 하면 MENTORMAN의 
+						<input type="checkbox"  id="member_servicecheck" name="member_servicecheck" data-check="check"/>회원가입을 하면 MENTORMAN의 
 						<a href="" type="external" target="_blank">이용약관</a> 및 <a href="" type="external" target="_blank">개인정보처리방침</a>
 						에 동의하는것으로 간주합니다.<div>
 						</div>

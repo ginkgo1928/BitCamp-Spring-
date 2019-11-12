@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="../js/member.js"></script>
+<script src="../js/member.js"></script> 
+
 <div class="page navbar-fixed devise sessions new" data-name="sessions-new">
 	<div class="page-content" style="margin-bottom: 100px;">
 		<div class="content-wrapper">
@@ -43,7 +44,7 @@
 				
 					<div class="block-footer forgot-password text-align-right">
 					<input type="checkbox" id="cheboxid" name="cheboxid" value="">이메일 저장 &nbsp;&nbsp;&nbsp;&nbsp;
-					<a class="color-gray" type="external" href="">비밀번호를 잊으셨나요? </a>
+					<a class="color-gray" type="external" href="../member/setpwdForm">비밀번호를 잊으셨나요? </a>
 					</div>
 					
 					<input type="button" id="loginBtn" value="로그인" class="btn button button-big button-fill submit-button" data-disable-with="요청중..." />

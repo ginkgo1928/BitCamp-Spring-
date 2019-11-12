@@ -18,6 +18,8 @@ import member.bean.MemberDTO;
  */
 public class MemberDAOMybatis implements MemberDAO {
 	@Autowired
+	private MemberDTO memberDTO;
+	@Autowired
 	private SqlSession sqlSession;
 	/** @Title : 닉네임 중복확인
  	   @author : ginkgo1928  @date : 2019. 11. 5.*/
@@ -41,8 +43,15 @@ public class MemberDAOMybatis implements MemberDAO {
 	 * @author : ginkgo1928  @date : 2019. 11. 5.*/
 	@Override
 	public MemberDTO login(Map<String, String> map) {
-		MemberDTO memberDTO=sqlSession.selectOne("memberSQL.login",map);
+		memberDTO=sqlSession.selectOne("memberSQL.login",map);
 		return  memberDTO;
+	}
+	/** @Title : 비밀번호 설정
+	 * @author : ginkgo1928  @date : 2019. 11. 12.*/
+	@Override
+	public MemberDTO setsetmemberpwd(Map<String, String> map) {
+		memberDTO=sqlSession.selectOne("memberSQL.setsetmemberpwd",map);
+		return memberDTO;
 	}
 
 

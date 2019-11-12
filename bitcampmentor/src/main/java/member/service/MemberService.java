@@ -14,6 +14,8 @@ public interface MemberService {
 
 	public MemberDTO login(Map<String, String> map);
 
+	public MemberDTO setmemberpwd(Map<String, String> map);
+
 	
 	
 	

@@ -14,6 +14,8 @@ public interface MemberDAO {
 
 	public MemberDTO login(Map<String, String> map);
 
+	public MemberDTO setsetmemberpwd(Map<String, String> map);
+
 
 
 }

@@ -38,9 +38,13 @@
  .member-img-upbtn {
   border: 2px solid #ff2d55;
 }
-
+/* 이미지 업로드 버튼 */
 .cover #member_profile {
   opacity: 0;
   width: 1px;
   height: 1px;
+}
+/* Email 인증 번호 입력 칸  */
+input[type="text"]:disabled {
+	background: white;
 }
