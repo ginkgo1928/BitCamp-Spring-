@@ -1,23 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<style>
+.membership {
+    width: 450px;
+     margin: 0 auto;
+ }
+
+  .membership .title {
+   text-align: center;
+ }	
+</style> 
 <script src="../js/member.js"></script>
 <link rel="stylesheet"  href="../css/mypg.css" type="text/css" />
-
 <div class="page navbar-fixed devise registrations new" data-name="registrations-new">
 	<div class="page-content" style="margin-bottom: 100px;">
 		<div class="content-wrapper">
 		<h1 align="center">회원가입</h1>
+		<div class="membership">
 			<div class="block inset login-block">
 					<form class="simple_form new_user" name="writeForm" id="writeForm" method="post" enctype="multipart/form-data" action="/bitcampmentor/member/write">	
 					<div class="member-img-block">
-						<div class="member-img-circle"><img id="member_profile_img" src="../image/profile.jpg"/></div><br/><br/>
+					<div align="center">
+						<div class="member-img-circle">
+						<img id="member_profile_img"  src="../image/profile.jpg"/></div><br/><br/>
 							<div class="file-container">
 								<div class="cover">
 									<input id="member_profile" name="member_profile"  accept=".jpg, .jpeg, .png" type="file" onchange="previewFile(this);" /> 
 									<label for="member_profile" class="member-img-upbtn">이미지 업로드</label>
 							</div>
 						</div>
+						</div>
 					</div>
+				
 					<!-- </form> -->
 					<div class="list form-list no-hairlines no-margin-top">
 						<ul>
@@ -74,7 +88,7 @@
 
 
 					<div class="block-footer term-footer">
-						<input type="checkbox"  id="member_servicecheck" name="member_servicecheck" data-check="check"/>회원가입을 하면 MENTORMAN의 
+						<input type="checkbox"  id="member_servicecheck" name="member_servicecheck" data-check="check" checked="checked"/>회원가입을 하면 MENTORMAN의 
 						<a href="" type="external" target="_blank">이용약관</a> 및 <a href="" type="external" target="_blank">개인정보처리방침</a>
 						에 동의하는것으로 간주합니다.<div>
 						</div>
@@ -93,4 +107,4 @@
 		</div>
 	</div>
 </div>
-
+</div>

@@ -12,6 +12,7 @@
   border-radius: 50%;
   -webkit-box-shadow: #dbdbdb 0px 0px 0px 2px;
   box-shadow: #dbdbdb 0px 0px 0px 2px;
+  cursor:pointer;
 }
  
  /*파일 업로드 버튼 */
@@ -27,12 +28,14 @@
 
  .cover {
   position: relative;
+  
 } 
 
 .cover .member-img-upbtn {
   position: absolute;
-  left: 0;
+  left: 20px;
   top: 0;
+  cursor:pointer;
 } 
 
  .member-img-upbtn {
@@ -43,8 +46,7 @@
   opacity: 0;
   width: 1px;
   height: 1px;
+
 }
-/* Email 인증 번호 입력 칸  */
-input[type="text"]:disabled {
-	background: white;
-}
+
+

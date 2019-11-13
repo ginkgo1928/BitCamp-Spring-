@@ -16,12 +16,12 @@
 	<context:component-scan base-package="adminboard.controller"/>
 	<context:component-scan base-package="adminmember.controller"/>
 	
-	<!-- ginkgo 1928, member,email(Gmail) 발송 --> 	
+	<!-- ginkgo 1928, member_Email(Gmail) 발송 --> 	
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username" value="ginkgo1928@gmail.com"/>
-		<property name="password" value=""/>
+		<property name="password" value="newall1013!"/>
 		<property name="javaMailProperties">
 		<props>
 			<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
@@ -60,6 +60,15 @@
 	<!-- fileUpload -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="5000000"/>
+	</bean>
+	
+	<!-- json -->
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+		<property name="contentType" value="text/html;charset=UTF-8" />
+	</bean>
+
+	<bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0" />
 	</bean>
 	
 	<context:component-scan base-package="co.kr.bitcampmentor" />

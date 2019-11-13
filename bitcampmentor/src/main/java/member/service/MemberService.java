@@ -16,6 +16,10 @@ public interface MemberService {
 
 	public MemberDTO setmemberpwd(Map<String, String> map);
 
+	public MemberDTO newPwdCommit(Map<String, String> map);
+
+	
+
 	
 	
 	

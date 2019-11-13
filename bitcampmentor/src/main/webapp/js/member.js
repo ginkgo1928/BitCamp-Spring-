@@ -1,8 +1,6 @@
-/* 
- * 날짜 : 2019.11.01 
+/*  날짜 : 2019.11.01 
  * 작성자 :ginkgo1928
- * 설명 : 회원가입 JavaScript 유효성 검사
- */
+ * 설명 : 회원가입 JavaScript 유효성 검사*/
 
 //Email 정규식 검사
 function emailCheck(strVal, text) {
@@ -34,7 +32,6 @@ function Ifn_NameCheck(){
 	}else if(reg.test(name)){
 		jCont = '<div class="msg_error02">한글,영문만 입력 가능합니다.</div>';
 		$('.item-input-info-Name').css('color', 'red').html(jCont);
-		$('#member_name').focus();
 		$('#member_name').addClass("error");
 		return false;
 	}else{
@@ -55,13 +52,11 @@ $(document).ready(function(){
 		if(nickName.length==0){
 			jCont = '<div class="msg_error">닉네임을 입력해주세요.</div>';
 			$('.item-input-info-NickName').css('color', 'red').html(jCont);
-			$('#member_nickname').focus();
 			$('#member_nickname').addClass("error");
 			isNicknameValid =false;
 		}else if(nickName.length< 3 || nickName.length>22){
 			jCont = '<div class="msg_error">닉네임 3자~22자. 이하입니다.</div>';
 			$('.item-input-info-NickName').css('color', 'red').html(jCont);
-			$('#member_nickname').focus();
 			$('#member_nickname').addClass("error");
 			isNicknameValid= false;
 		}else{
@@ -180,10 +175,11 @@ function previewFile(input) {
 		reader.readAsDataURL(input.files[0]);
 	}
 }
-//회원가입 체크 박스 검사 여부 (member_write : 전역변수 사용)
+/*회원가입 체크 박스 검사 여부 (member_write : 전역변수 사용)
+체크박스 checked이며 checkbox를 해제 하면 경고메세지 발생*/
 var member_write = false;
 $(document).ready(function() {
-	$(document).on("change","[data-check='check']",function() {
+	$(document).on('change',"[data-check='check']",function() {
 		var isWriteCheck = $('#member_servicecheck').prop('checked');
 		var jCont = "";
 		if (isWriteCheck == false) {
@@ -197,10 +193,11 @@ $(document).ready(function() {
 		}
 	});
 });
+
 //회원 가입
 $(document).ready(function(){
 	$('#writeBtn').click(function(){
-		if(Ifn_NameCheck()&&isEmailcheck==true&&isNicknameValid==true&&Ifn_PwdCheck()&&Ifn_RepwdCheck()&&member_write==true) {
+		if(Ifn_NameCheck()&& isEmailcheck==true && isNicknameValid==true && Ifn_PwdCheck() && Ifn_RepwdCheck()&&member_write==true) {
 			$('form[name=writeForm]').submit();
 		}
 	});
@@ -235,31 +232,31 @@ function getCookie(cookieName) {
     }
     return unescape(cookieValue);
 }
-// Login 로그인
+// Login 로그인 (아이디 저장을 누르면 JavaScript Cookie에서 저장)
 $(document).ready(function() {
-	var member_Email = getCookie("Cookie_email"); // --> 저장된 저장된 Cookie의 값
-	$("#member_email").val(member_Email); // Cookie담는다.
-		if ($("#member_email").val() != "") { // --> 전에 이메일 저장을 눌렀을 경우 그대로 둔다.
-			$("#cheboxid").attr("checked", true);
+	var member_Email = getCookie('Cookie_email'); // --> 저장된 저장된 Cookie의 값
+	$('#member_email').val(member_Email); // Cookie담는다.
+		if ($('#member_email').val() != '') { // --> 전에 이메일 저장을 눌렀을 경우 그대로 둔다.
+			$('#cheboxid').attr('checked', true);
 		
 		}
-		$("#cheboxid").change(function() { // --> Checkbox 변화 발생시
-			if ($("#cheboxid").is(":checked")) {
-				var member_Email = $("#member_email").val();
-				setCookie("Cookie_email", member_Email, 7); // -->7일 동안 Cookie 보관
+		$('#cheboxid').change(function() { // --> Checkbox 변화 발생시
+			if ($('#cheboxid').is(':checked')) {
+				var member_Email = $('#member_email').val();
+				setCookie('Cookie_email', member_Email, 7); // -->7일 동안 Cookie 보관
 			} else {
-				deleteCookie("Cookie_email");
+				deleteCookie('Cookie_email');
 			}
 		});
 
-		$("#member_email").keyup(function() {// Checkbox을 누르고 Email을 입력할때도 Cookie저장
-			if ($("#cheboxid").is(":checked")) {
-				var member_Email = $("#member_email").val();
-				setCookie("Cookie_email", member_Email, 7);
+		$('#member_email').keyup(function() {// Checkbox을 누르고 Email을 입력할때도 Cookie저장
+			if ($('#cheboxid').is(':checked')) {
+				var member_Email = $('#member_email').val();
+				setCookie('Cookie_email', member_Email, 7);
 			}
 		});
-		$("#loginBtn").click(function(){
-		var jCont="";
+		$('#loginBtn').click(function(){
+		var jCont='';
 		var email=$('#member_email').val();
 		var pwd=$('#member_pwd').val();
 			if(email.length==0){
@@ -281,17 +278,84 @@ $(document).ready(function() {
 					data:{'member_email':email,'member_pwd':pwd},
 					dataType:'text',
 					success:function(data){
-						if (data=="login_ok") {
+						if (data=='login_ok') {
 							location.href = '/bitcampmentor/main/index'
-						} else if (data =="login_fail") {
+						} else if (data =='login_fail') {
 							$('.login-Div').text('아이디 또는 비밀번호가 틀립니다').css('color', 'red');
 						}
 					},error:function(e){
 						conlose.log(e);
 						}
 				});
-				$('#member_email').removeClass("error");
-				$('#member_pwd').removeClass("error");
+				$('#member_email').removeClass('error');
+				$('#member_pwd').removeClass('error');
 			}
 		});
 	});
+//비밀번호 재설정
+$(document).ready(function(){
+	$('#setpwdEmailOn').hide();
+	$('#setpwdOnBtn').hide();
+	$('#newpwdFormDiv').hide();
+	$('.name-setpwd-Div').empty();
+	$('.email-setpwd-Div').empty();
+	var jCont='';
+	$('#setpwdBtn').click(function(){
+		if($('#member_name').val()==''){
+			jCont = '<div class="msg_error">이름을 입력해주세요.</div>';
+			$('.name-setpwd-Div').css('color', 'red').html(jCont);
+		}else if($('#member_email').val()==''){
+			jCont = '<div class="msg_error">이메일을 입력해주세요.</div>';
+			$('.email-setpwd-Div').css('color', 'red').html(jCont);
+		}else if($('#member_name').val()!='' || $('#member_email').val()!='') {
+			$.ajax({
+				type:'post',
+				url:'/bitcampmentor/member/setmemberpwd',
+				data:'member_name='+$('#member_name').val()+'&member_email='+$('#member_email').val(),
+				dataType:'text',
+				success:function(data){
+					 if(data=='get_member'){
+						jCont='<div class="msg_emailok">비밀번호 재설정 인증번호를 발송했습니다.</div>';
+						$('.setPwd-Div').css('color', 'blue').html(jCont);
+						$('#setpwdEmailOn').show();
+						$('#setpwdOnBtn').show();
+						$('#setpwdBtn').hide();
+					}else if(data=='not_member'){
+						jCont='<div class="msg_emailfail">찾을수가 없습니다. 다시 확인 해주세요.</div>';
+						$('.setPwd-Div').css('color', 'red').html(jCont);
+					}
+					},error:function(e){
+						conlose.log(e);
+					}
+			});//aj
+		}
+	});
+	//인증번호 입력
+	$('#setpwdOnBtn').click(function(){
+		if($("#set_pwdrandom").val()==''){
+			jCont = '<div class="msg_error">인증번호를 입력해주세요.</div>';
+			$('.setPwd-Div').css('color', 'red').html(jCont);
+		}else if($('#set_pwdrandom').val!=''){
+			$.ajax({
+				type:'post',
+				url:'/bitcampmentor/member/setmemberpwdrandom',
+				data:'set_pwdrandom='+$('#set_pwdrandom').val(),
+				dataType:'text',
+				success:function(data){
+				 if(data=='set_randomOk'){
+					$('#setpwdEmailOn').hide();
+					$('#setpwdOnBtn').hide();
+					$('#setpwdForm').hide();
+					$('#newpwdFormDiv').show();
+				 }else if(data=='set_randomFail'){
+					 jCont = '<div class="msg_error">인증번호가 틀렸습니다. 다시 확인 해주세요.</div>';
+						$('.setPwd-Div').css('color', 'red').html(jCont);
+				 }
+				},error:function(e){
+					conlose.log(e);
+				}		
+			});
+		}	
+	});	
+	
+});

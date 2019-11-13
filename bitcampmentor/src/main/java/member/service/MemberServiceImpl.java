@@ -14,35 +14,52 @@ import member.dao.MemberDAO;
  */
 @Service(value="memberService")
 public class MemberServiceImpl implements MemberService {
+	
 	@Autowired private MemberDAO memberDAO;
+	
 	/** @Title : 닉네임 중복확인.
 	 * @author : ginkgo1928 @date : 2019. 11. 5.*/
 	@Override
 	public MemberDTO writeNicknamecheck(String member_nickname) {
 		return memberDAO.writeNicknamecheck(member_nickname);
 	}
+	
 	/** @Title : 이메일 중복확인
 	 * @author : ginkgo1928  @date : 2019. 11. 5.*/
 	@Override
 	public MemberDTO writeEmailCheck(String member_email) {
 		return memberDAO.writeEmailCheck(member_email);
 	}
+	
 	/* 회원가입 완료 */
 	@Override
 	public void write(Map<String, String> map) {
 		memberDAO.write(map);
 	}
-	@Override
+	
 	/* 로그인 */
+	@Override
 	public MemberDTO login(Map<String, String> map) {
 		return memberDAO.login(map);
 	}
+	
 	/* 비밀번호 찾기 */
 	@Override
 	public MemberDTO setmemberpwd(Map<String, String> map) {
 		return memberDAO.setsetmemberpwd(map);
 	}
+	
+	/** @Title : 이메일 인증을 하고 새로운 비밀번호로 변경
+	 * @author : ginkgo1928
+	 * @date : 2019. 11. 13. */
+	
 
+	@Override
+	public MemberDTO newPwdCommit(Map<String, String> map) {
+		return memberDAO.newPwdCommit(map);
+	}
+	
 
+	
 }
 
