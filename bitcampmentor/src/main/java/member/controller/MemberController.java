@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +22,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import member.bean.MemberDTO;
-import member.service.MailService;
+import member.service.MemberMailService;
 import member.service.MemberService;
+
+
 
 /** @Title : 회원가입 Controller.
  * @author : ginkgo1928
@@ -38,7 +39,7 @@ public class MemberController {
 	@Autowired
 	private MemberDTO memberDTO;
 	@Autowired
-	private MailService mailService; 
+	private MemberMailService mailService; 
 
 	// WriteForm 화면
 	@RequestMapping(value = "writeForm", method = RequestMethod.GET)
@@ -109,8 +110,8 @@ public class MemberController {
 		map.put("member_email", member_email);
 		map.put("member_pwd", member_pwd);
 		memberDTO = memberService.login(map);
-		memberDTO.setMember_pwd("");
 		if (memberDTO != null) {
+			memberDTO.setMember_pwd("");
 		    session.setMaxInactiveInterval(60*60*24); 
 			session.setAttribute("memDTO", memberDTO);
 			return "login_ok";
@@ -146,28 +147,20 @@ public class MemberController {
 	@RequestMapping(value = "setmemberpwd", method = RequestMethod.POST)
 	@ResponseBody
 	public String setmemberpwd(@RequestParam String member_name, String member_email, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,Model model) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("member_name", member_name);
 		map.put("member_email", member_email);
 		memberDTO = memberService.setmemberpwd(map);
 		if (memberDTO != null) {
-			int random = new Random().nextInt(900000) + 100000;
-			HttpSession session = request.getSession(true);
-			String authCode = String.valueOf(random);
-			session.setAttribute("authCode", authCode);
-			session.setAttribute("random", random);
-			Cookie cookie = new Cookie("Cookie_Email", memberDTO.getMember_email());
+			//인증 코드 생성
+			String auauthKey=mailService.mailSendWithUserKey(member_email, member_name);
+			System.out.println(auauthKey+"서비스");
+			Cookie cookie = new Cookie("Cookie_Email", auauthKey);
 			cookie.setMaxAge(60 * 3);
 			cookie.setPath("/");
-			cookie.setValue(random + "");
 			response.addCookie(cookie);
 			System.out.println(cookie.getName() + cookie.getValue());
-			String subject = "멘토로 비밀번호 변경을 안내해드립니다.";
-			StringBuilder stringBuilder = new StringBuilder();
-			
-			stringBuilder.append(member_name + " 님의 인증코드는 " + authCode + "입니다.<br>" + "비밀번호 재설정 위해서는 인증코드를 확인란에 입력해주세요");
-			mailService.send(subject, stringBuilder.toString(), "ginkgo1928@gmail.com", member_email, "mailTemplate.jsp");
 			return "get_member";
 		} else {
 			return "not_member";
@@ -178,7 +171,7 @@ public class MemberController {
 	 * @author : ginkgo1928 @date : 2019. 11. 13. */
 	@RequestMapping(value = "setmemberpwdrandom", method = RequestMethod.POST)
 	@ResponseBody
-	public String setmemberpwdrandom(@RequestParam int set_pwdrandom, HttpServletRequest request) {
+	public String setmemberpwdrandom(@RequestParam int set_pwdrandom, HttpServletRequest request) {		
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
@@ -196,7 +189,7 @@ public class MemberController {
 		return "set_randomFail";
 	}
 	
-	/** @Title : 새로운 비밀번호 화면을 show 활성화
+	/** @Title : 새로운 비밀번호 화면을 show 활성화 후 비밀번호 변경
 	 * @author : ginkgo1928 @date : 2019. 11. 13. */
 	@RequestMapping(value = "newPwdCommit", method=RequestMethod.POST)
 	@ResponseBody

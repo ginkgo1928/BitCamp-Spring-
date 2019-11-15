@@ -14,6 +14,14 @@
   box-shadow: #dbdbdb 0px 0px 0px 2px;
   cursor:pointer;
 }
+.membership {
+    width: 450px;
+     margin: 0 auto;
+ }
+
+  .membership .title {
+   text-align: center;
+ }	
  
  /*파일 업로드 버튼 */
 .member-img-upbtn {

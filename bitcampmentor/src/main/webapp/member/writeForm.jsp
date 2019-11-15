@@ -1,17 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<style>
-.membership {
-    width: 450px;
-     margin: 0 auto;
- }
-
-  .membership .title {
-   text-align: center;
- }	
-</style> 
+ 
 <script src="../js/member.js"></script>
-<link rel="stylesheet"  href="../css/mypg.css" type="text/css" />
+<link rel="stylesheet"  href="../css/mypg.css" type="text/css"/>
 <div class="page navbar-fixed devise registrations new" data-name="registrations-new">
 	<div class="page-content" style="margin-bottom: 100px;">
 		<div class="content-wrapper">
