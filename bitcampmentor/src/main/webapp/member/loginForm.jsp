@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<c:url value="/member/login" var="loginUrl"/>
 <div class="page navbar-fixed devise sessions new" data-name="sessions-new">
 	<div class="page-content" style="margin-bottom: 100px;">
 		<div class="content-wrapper">

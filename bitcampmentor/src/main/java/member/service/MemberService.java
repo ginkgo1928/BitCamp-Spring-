@@ -18,6 +18,8 @@ public interface MemberService {
 
 	public MemberDTO newPwdCommit(Map<String, String> map);
 
+	public MemberDTO getMember(Map<String, String> map);
+
 	
 
 	

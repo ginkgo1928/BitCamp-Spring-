@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                                 http://www.springframework.org/schema/beans/spring-beans.xsd
+                                 http://www.springframework.org/schema/security
+                                 http://www.springframework.org/schema/security/spring-security.xsd">
+<!-- auto-confing(=자동설정) use-expressions(=SPEL문법 사용유무) -->
+<!-- SPEL 문법 :hasAnyRole(=권한들 하나라도 가지고 있는 경우),permitAll(=권한과 상관없이 접근불가) -->
+<!-- hasRole(=권한을 한개라도 가진 경우) -->
+<http auto-config="true">
+	<intercept-url pattern="/member/loginForm" access="permitAll"/>
+	<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+	<intercept-url pattern="/**" access="permitAll"/>
+	<form-login login-page="/member/loginForm"
+	default-target-url="/main/index"
+	authentication-failure-forward-url="/member/loginForm?error"
+	username-parameter="member_email"
+	password-parameter="member_pwd"
+	login-processing-url="/member/login"/>
+</http>
+
+
+<authentication-manager>
+	<authentication-provider>
+		<user-service>
+			<user name="member" password="memberpw" authorities="ROLE_MEMBER"/>
+			<user name="admin" password="admin" authorities="ROLE_ADMIN"/>
+		</user-service>
+	</authentication-provider>
+</authentication-manager>                               
+</beans:beans>

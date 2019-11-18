@@ -106,12 +106,12 @@ public class MemberController {
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	@ResponseBody
 	public String login(@RequestParam String member_email, String member_pwd, HttpSession session) {
+		System.out.println("여기 까지 왔어??");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("member_email", member_email);
 		map.put("member_pwd", member_pwd);
 		memberDTO = memberService.login(map);
 		if (memberDTO != null) {
-			memberDTO.setMember_pwd("");
 		    session.setMaxInactiveInterval(60*60*24); 
 			session.setAttribute("memDTO", memberDTO);
 			return "login_ok";

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>	
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <div class="">
 	<div class="navbar">
 		<div class="navbar-inner">
@@ -30,7 +31,9 @@
 				<a class="button button-big beta-div" type="external" href="/mentor_requests/new"> 멘토 지원하기 </a>
 				<c:if test= "${memDTO==null}">
 				<a class="button button-big" type="external" href="../member/writeForm">회원가입</a>
-				<a class="button button-big" type="external" href="../member/loginForm">로그인</a>
+				<sec:authorize access="isAnonymous()">
+				<a class="button button-big" type="external" href='<c:url value="/member/loginForm"/>'>로그인</a>
+				</sec:authorize>
 				</c:if>
 				
 				<c:if test="${memDTO!=null}">
@@ -65,7 +68,9 @@
 								<div class="list links-list no-hairlines-between">
 									<ul>
 										<li><a type="external" href="/bitcampmentor/member/modifyForm">계정설정</a></li>
+										<sec:authorize access="isAuthenticated()">
 										<li><a type="external" href="/bitcampmentor/member/logout">로그아웃</a></li>
+										</sec:authorize>
 									</ul>
 								</div>
 							</div>
