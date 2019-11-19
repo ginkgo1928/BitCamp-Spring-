@@ -29,22 +29,18 @@ public class MemberDTO implements UserDetails{
 	//계정이 갖고 있는 권한 목록을 리턴
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		List<GrantedAuthority> auth=new ArrayList<GrantedAuthority>();
-		if(this.member_email.equals("qws507@naver.com")){
-			auth.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		}else {
-			auth.add(new SimpleGrantedAuthority("ROLE_USER"));
-		}
-		return auth;
+		List<GrantedAuthority> authorities=new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+		return authorities;
 	}
 	
 	@Override
 	public String getPassword() {
-		return this.member_pwd;
+		return member_pwd;
 	}
 	@Override
 	public String getUsername() {
-		return this.member_pwd;
+		return member_email;
 	}
 	@Override
 	public boolean isAccountNonExpired() {

@@ -2,17 +2,18 @@ package member.service;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import member.bean.MemberDTO;
 
-/** @Title : DB에서 유저 정보를 직접 가져온다.
- * @author : gingko1928
- * @date : 2019. 11. 18.*/
+/** @Title  : DB에서 유저 정보를 직접 가져온다.
+ *  @author : gingko1928
+ *  @date   : 2019. 11. 18.*/
+@Service(value = "memberAuthentServiceImpl")
 public class MemberAuthentServiceImpl implements UserDetailsService  {
 	
 	@Autowired

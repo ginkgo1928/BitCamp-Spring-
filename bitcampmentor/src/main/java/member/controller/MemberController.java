@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -33,14 +34,14 @@ import member.service.MemberService;
 @Controller
 @RequestMapping(value="member")
 public class MemberController {
-	
-	@Autowired
-	private MemberService memberService;
 	@Autowired
 	private MemberDTO memberDTO;
 	@Autowired
+	private MemberService memberService;
+	@Autowired
 	private MemberMailService mailService; 
-
+	@Autowired 
+	private PasswordEncoder passwordEncoder;
 	// WriteForm 화면
 	@RequestMapping(value = "writeForm", method = RequestMethod.GET)
 	public String writeForm(Model model) {
@@ -102,23 +103,17 @@ public class MemberController {
 	}
 
 	/** @Title : 로그인 처리,세션 기간 설정.
-	 * @author : ginkgo1928 @date : 2019. 11. 09. */
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	@ResponseBody
-	public String login(@RequestParam String member_email, String member_pwd, HttpSession session) {
-		System.out.println("여기 까지 왔어??");
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("member_email", member_email);
-		map.put("member_pwd", member_pwd);
-		memberDTO = memberService.login(map);
-		if (memberDTO != null) {
-		    session.setMaxInactiveInterval(60*60*24); 
-			session.setAttribute("memDTO", memberDTO);
-			return "login_ok";
-		} else {
-			return "login_fail";
-		}
+	 * @author : ginkgo1928 @date : 2019. 11. 19. */
+	@RequestMapping(value = "login", method = RequestMethod.GET)
+	public ModelAndView getLogin(@RequestParam(required = false)  String  msg) {
+		ModelAndView mav= new ModelAndView();
+		mav.addObject("msg",msg);
+		mav.addObject("display","/member/loginForm.jsp");
+		mav.setViewName("/main/index");
+		return mav;
 	}
+    
+
 	// 로그아웃 처리
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public ModelAndView logout(HttpSession session) {
@@ -155,7 +150,6 @@ public class MemberController {
 		if (memberDTO != null) {
 			//인증 코드 생성
 			String auauthKey=mailService.mailSendWithUserKey(member_email, member_name);
-			System.out.println(auauthKey+"서비스");
 			Cookie cookie = new Cookie("Cookie_Email", auauthKey);
 			cookie.setMaxAge(60 * 3);
 			cookie.setPath("/");

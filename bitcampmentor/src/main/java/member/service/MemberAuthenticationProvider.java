@@ -13,7 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import member.bean.MemberDTO;
 
-/** @Title :  Security Custom
+/** @Title  : Security Custom
+ *  @Memo   : 1. Token을 사용한 인증
  *  @author : gingko1928
  *  @date   : 2019. 11. 18. */
 public class MemberAuthenticationProvider implements AuthenticationProvider  {
@@ -22,16 +23,15 @@ public class MemberAuthenticationProvider implements AuthenticationProvider  {
 	@Autowired
 	private UserDetailsService memberAuthentServiceImpl;
 	@Autowired
-	private PasswordEncoder  passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		//Token을 사용한 인증
 		UsernamePasswordAuthenticationToken token=(UsernamePasswordAuthenticationToken) authentication;
 		
 		MemberDTO memberDTO=(MemberDTO)memberAuthentServiceImpl.loadUserByUsername(token.getName());
 		if(memberDTO==null) {
-			throw new UsernameNotFoundException("cannnot find username"+token.getName());
+			throw new UsernameNotFoundException("cannnot find member_email"+token.getName());
 		}
 		
 		if(!passwordEncoder.matches(token.getCredentials()+"", memberDTO.getMember_pwd())) { 
@@ -40,14 +40,14 @@ public class MemberAuthenticationProvider implements AuthenticationProvider  {
 		
 		List<GrantedAuthority> authorities = (List<GrantedAuthority>) memberDTO.getAuthorities();
 		return new UsernamePasswordAuthenticationToken(memberDTO, memberDTO.getMember_pwd(), authorities);
-		
-		
 	}
 
 	@Override
 	public boolean supports(Class<?> authentication) {
-		return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
+		
+		return true;
 	}
+	
 
 
 	

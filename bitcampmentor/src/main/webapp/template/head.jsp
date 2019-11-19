@@ -31,11 +31,12 @@
 				<a class="button button-big beta-div" type="external" href="/mentor_requests/new"> 멘토 지원하기 </a>
 				<c:if test= "${memDTO==null}">
 				<a class="button button-big" type="external" href="../member/writeForm">회원가입</a>
-				<sec:authorize access="isAnonymous()">
+			
 				<a class="button button-big" type="external" href='<c:url value="/member/loginForm"/>'>로그인</a>
-				</sec:authorize>
+			
 				</c:if>
 				
+		
 				<c:if test="${memDTO!=null}">
 				 <a type="internal" class="button button-big popover-open me-profile" data-popover=".js-me-popover" href="">
 				 	<img src="../image/profile.jpg" width="28" height="28">
@@ -67,10 +68,10 @@
 								
 								<div class="list links-list no-hairlines-between">
 									<ul>
+										
 										<li><a type="external" href="/bitcampmentor/member/modifyForm">계정설정</a></li>
-										<sec:authorize access="isAuthenticated()">
 										<li><a type="external" href="/bitcampmentor/member/logout">로그아웃</a></li>
-										</sec:authorize>
+									
 									</ul>
 								</div>
 							</div>
