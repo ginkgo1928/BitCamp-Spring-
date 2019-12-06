@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<!--sample01 기본생성자 -->
+<bean id="messageBeanImpl" class="sample01.MessageBeanImpl">
+	
+	<!-- 생성자 : constructor-arg -->
+			<constructor-arg>
+				<value>딸기</value>
+			</constructor-arg>
+			
+			
+			<!--fild cost X!! set cost  O!!!  -->
+			<property name="cost">
+				<value>5000</value>
+			</property>
+			
+			<property name="qty" value="3"/>
+	</bean>
+<!--sample 02 생성자:construtor-arg-->
+<bean id="calcAdd" class="sample02.CalcAdd">
+	<constructor-arg value="25"/>
+	<constructor-arg value="36"/>
+</bean>
+
+<!--setter : property  -->
+<bean id="calcMul" class="sample02.CalcMul">
+	<property name="x" value="25" />
+	<property name="y" value="36" />
+</bean>
+
+<!--sample04 -->
+<bean id="sungJukDTO" class="sample03.SungJukDTO">
+	<property name="name" value="김나다"/>
+	<property name="kor" value="80"/>
+	<property name="eng" value="78"/>
+	<property name="math" value="100"/>
+</bean>
+
+<bean id="sungJukImpl" class="sample03.SungJukImpl">
+	<constructor-arg ref="sungJukDTO"/>
+</bean>  
+
+<!--sample04 : 메서드에 있는 set 생략 앞글자 소문자 호출 -->
+
+<bean id="messageBeanImplto" class="sample04.MessageBeanImpl">
+	<constructor-arg value="이송현"/>
+	<property name="phone" value="010-0333-2221"/>
+	<property name="outputter" ref="fileOutputter"/>
+</bean>
+
+<bean id="fileOutputter" class="sample04.FileOutputter">
+	<property name="filePath" value="C:/Spring/workSTS/chapter02/"></property>
+	<property name="fileName"  value="result.txt"></property>
+</bean>
+
+<!--sample05  -->
+<bean id="helloSpring" class="sample05.HelloSpring"/>
+<bean id="sungJukInput" class="sample05.SungJukInput" scope="prototype">
+	<property name="list" ref="arrayList"/>
+	<property name="sungJukDTO" ref="sungJukDTO2"/>
+</bean>
+
+<bean id="sungJukOutput" class="sample05.SungJukOutput">
+	<property name="list"  ref="arrayList"/>
+</bean>
+
+<bean id="sungJukDelete" class="sample05.SungJukDelete">
+		<property name="list"  ref="arrayList"/>
+</bean>
+
+<bean id="sungJukModify" class="sample05.SungJukModify">
+	<property name="list" ref="arrayList"/>
+</bean>
+
+<bean id="arrayList" class="java.util.ArrayList"/>
+<bean id="sungJukDTO2" class="sample05.SungJukDTO" scope="prototype"/>
+</beans>
+

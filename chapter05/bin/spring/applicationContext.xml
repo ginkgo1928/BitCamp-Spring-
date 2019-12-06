@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		
+
+	<!-- Transaction clost  -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- Connection Pool -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		p:driverClassName="oracle.jdbc.driver.OracleDriver"
+		p:url="jdbc:oracle:thin:@localhost:1521:xe" p:username="java"
+		p:password="dkdlxl" p:maxTotal="20" p:maxIdle="3" />
+
+	<!-- SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:spring/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:user/dao/userMapper.xml" />
+	</bean>
+
+	<!-- SqlSession -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- Transactional:MappeerFile commit,close을 Transactional이 해줌 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- user.main -->
+	<bean id="helloSpring" class="user.main.HelloSpring"/>
+	
+	<!-- user.service(insert) -->	
+	<bean id="userInsertService" class="user.service.UserInsertService">
+		<property name="userDTO" ref="userDTO"/>
+		<property name="userDAO" ref="userDAO"/>
+	</bean>
+	
+	<!--user.service(List) -->
+	<bean id="userSelectService" class="user.service.UserSelectService">
+		<property name="userDAO" ref="userDAO"/>
+	</bean>
+	
+	<!--user.service(Update) -->
+	<bean id="userUpdateService" class="user.service.UserUpdateService">
+		<property name="userDAO" ref="userDAO"/>
+	</bean>
+	
+	<!--user.service(Delete) -->
+	<bean id="userDeleteService" class="user.service.UserDeleteService">
+		<property name="userDAO" ref="userDAO"/>
+	</bean>
+	
+	<!--user.service(Serch) -->
+	<bean id="userSerchService" class="user.service.UserSerchService">
+		<property name="userDAO" ref="userDAO"/>
+	</bean>
+	
+	<!-- user.bean -->
+	<bean id="userDTO"  class="user.bean.UserDTO"/>
+	
+	<!-- user.dao  -->
+	<bean id="userDAO" class="user.dao.UserDAOMybatis">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>	
+	
+</beans>
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<!--sample01 -->
+<!-- <context:component-scan base-package="sample01"/> -->
+
+
+<context:component-scan base-package="sample02"/>
+
+
+<!-- <context:component-scan base-package="sample03"/> -->
+
+<!--sample04  -->
+<context:component-scan base-package="sample04"/>
+
+<bean id="messageBeanImplto" class="sample04.MessageBeanImplto">
+<!-- 	<constructor-arg value="이송현"/> <property name="" value="010-0333-2221"/> -->
+	<property name="outputter" ref="fileOutputter"/>
+</bean>
+
+<bean id="fileOutputter" class="sample04.FileOutputter">
+	<property name="filePath" value="C:/Spring/workSTS/chapter02_SpringMaven/"/>
+	<property name="fileName" value="result.txt"/>
+</bean>
+
+
+<!-- 환경설정 패키지 읽어온다. -->
+<context:component-scan base-package="com.conf"/>
+
+<context:component-scan base-package="sample05"/>
+
+</beans>
